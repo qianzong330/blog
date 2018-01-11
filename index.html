@@ -360,127 +360,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://qianzong330.github.io/2018/01/09/my-new-post/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hanzq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hanzq's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/09/my-new-post/" itemprop="url">从这里开篇</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-09T17:54:26+08:00">
-                2018-01-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="乱七八糟的开始"><a href="#乱七八糟的开始" class="headerlink" title="乱七八糟的开始"></a>乱七八糟的开始</h2><p>总是等到过完农历的新年才会觉得新的一年才真正的开始，元旦仿佛没有什么卵用，回首过去的一年，有很多收获，同时也有不少遗憾，京东做活动的时候买的书还有好多没有读完，新的一年，新的开始，书要一步一步的读，代码要一字一字得码，希望2018年能够更上一层楼。<br>下面的只是个大概的提纲，没有具体的每天读几页，多少天读完等很严格的规划，因为生活中有很多突发事件会影响自己，公司加班、生病发烧，聚餐啊，跳槽等等…无法预测，用尽一切时间去学：在地铁上看，<br>在饭后看，睡觉前少看会儿手机多读一会儿书，让心流的时间加长，高效专注的完成之后再休息。</p>
-<h2 id="hexo博客出现“Cannot-GET-xxxx”的错误"><a href="#hexo博客出现“Cannot-GET-xxxx”的错误" class="headerlink" title="hexo博客出现“Cannot GET/xxxx”的错误"></a>hexo博客出现“Cannot GET/xxxx”的错误</h2><p>最近在github上搭了一个hexo博客系统，非常轻量级的，只需要几句nodejs命令就搭建完成了。我了解了一下，hexo博客是基于nodejs写的，采用ejs模板引擎编写页面。因为默认的主题风格不是很适合我，所以我就去hexo博客那里找了一些主题模板来使用。在我使用模板的过程中，就遇到新的主题的分类与标签功能出现“CannotGET/xxxx”问题。后来在官网上找到了原因，原来是我没有初始化分类的子目录。在控制台输入，如：hexo new page “categories”，初始化分类目录，就会在source文件里面初始化这些目录，并生成一个index文件。（注意配置）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new page <span class="string">"categories"</span></span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://qianzong330.github.io/2018/01/11/shiro/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -564,6 +443,127 @@
 <h3 id="第三步：在spring配置文件中配置一个名称为shiroFilter的bean"><a href="#第三步：在spring配置文件中配置一个名称为shiroFilter的bean" class="headerlink" title="第三步：在spring配置文件中配置一个名称为shiroFilter的bean"></a>第三步：在spring配置文件中配置一个名称为shiroFilter的bean</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 配置shiro的bean， 使用当前工厂bean对象创建过滤器用于进行权限控制--&gt;</span><br><span class="line">	&lt;bean id=<span class="string">"shiroFilter"</span> class=<span class="string">"org.apache.shiro.spring.web.ShiroFilterFactoryBean"</span>&gt;</span><br><span class="line">		&lt;!-- 注入安全管理器对象 --&gt;</span><br><span class="line">		&lt;property name=<span class="string">"securityManager"</span> ref=<span class="string">"securityManager"</span>&gt;&lt;/property&gt;</span><br><span class="line">		&lt;!-- 登录页面url地址 --&gt;</span><br><span class="line">		&lt;property name=<span class="string">"loginUrl"</span> value=<span class="string">"/login.jsp"</span>&gt;&lt;/property&gt;</span><br><span class="line">		&lt;!-- 成功页面 --&gt;</span><br><span class="line">		&lt;property name=<span class="string">"successUrl"</span> value=<span class="string">"/index.jsp"</span>&gt;&lt;/property&gt;</span><br><span class="line">		&lt;!-- 权限不足提示页面 --&gt;</span><br><span class="line">		&lt;property name=<span class="string">"unauthorizedUrl"</span> value=<span class="string">"/unauthorized.jsp"</span>&gt;&lt;/property&gt;</span><br><span class="line">		&lt;!-- 基于url拦截，使用过滤器进行拦截 --&gt;</span><br><span class="line">		&lt;property name=<span class="string">"filterChainDefinitions"</span>&gt;</span><br><span class="line">			&lt;value&gt;</span><br><span class="line">				/css/** = anon</span><br><span class="line">				/images/** = anon</span><br><span class="line">				/js/** = anon</span><br><span class="line">				/validatecode.jsp* = anon</span><br><span class="line">				/login.jsp = anon</span><br><span class="line">				/userAction_login.action = anon</span><br><span class="line">				/page_base_staff.action = perms[<span class="string">"staff"</span>]</span><br><span class="line">				/** = authc</span><br><span class="line">			&lt;/value&gt;</span><br><span class="line">		&lt;/property&gt;		</span><br><span class="line">	&lt;/bean&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;!-- 配置安全管理器 --&gt;</span><br><span class="line">	&lt;bean id=<span class="string">"securityManager class="</span>org.apache.shiro.web.mgt.DefaultWebSecurityManager<span class="string">"&gt;</span></span><br><span class="line"><span class="string">		&lt;property name="</span>realm<span class="string">" ref="</span>appRealm<span class="string">"&gt;&lt;/property&gt;</span></span><br><span class="line"><span class="string">		&lt;!-- 注入缓存管理器 --&gt;</span></span><br><span class="line"><span class="string">		&lt;property name="</span>cacheManager<span class="string">" ref="</span>cacheManager<span class="string">"&gt;&lt;/property&gt;</span></span><br><span class="line"><span class="string">	&lt;/bean&gt;</span></span><br><span class="line"><span class="string">	</span></span><br><span class="line"><span class="string">	&lt;!-- 配置自定义的realm --&gt;</span></span><br><span class="line"><span class="string">	&lt;bean id="</span>appRealm<span class="string">" class="</span>此处填写你项目中编写的realm的权限定名<span class="string">"/&gt;</span></span><br><span class="line"><span class="string">	</span></span><br><span class="line"><span class="string">	&lt;!-- 自动代理 --&gt;</span></span><br><span class="line"><span class="string">	&lt;bean class="</span>org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator<span class="string">"&gt;</span></span><br><span class="line"><span class="string">		&lt;!-- 指定使用cglib创建代理 --&gt;</span></span><br><span class="line"><span class="string">		&lt;property name="</span>proxyTargetClass<span class="string">" value="</span><span class="literal">true</span><span class="string">"&gt;&lt;/property&gt;</span></span><br><span class="line"><span class="string">	&lt;/bean&gt;</span></span><br><span class="line"><span class="string">	</span></span><br><span class="line"><span class="string">	&lt;!-- 切面 --&gt;</span></span><br><span class="line"><span class="string">	&lt;bean class="</span>org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor<span class="string">"&gt;&lt;/bean&gt;</span></span><br></pre></td></tr></table></figure>
 <h3 id="第四步：修改UserAction的login登录访问，使用shiro框架提供的方式进行认证操作"><a href="#第四步：修改UserAction的login登录访问，使用shiro框架提供的方式进行认证操作" class="headerlink" title="第四步：修改UserAction的login登录访问，使用shiro框架提供的方式进行认证操作"></a>第四步：修改UserAction的login登录访问，使用shiro框架提供的方式进行认证操作</h3><h3 id="第五步：自定义一个Realm，进行认证和授权操作"><a href="#第五步：自定义一个Realm，进行认证和授权操作" class="headerlink" title="第五步：自定义一个Realm，进行认证和授权操作"></a>第五步：自定义一个Realm，进行认证和授权操作</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">public class AppRealm extends AuthorizingRealm &#123;</span><br><span class="line">	// 注入dao，访问数据库</span><br><span class="line">	@Resource</span><br><span class="line">	private IUserDao userDao;</span><br><span class="line">	@Resource</span><br><span class="line">	private IFunctionDao functionDao;</span><br><span class="line"></span><br><span class="line">	// 认证方法</span><br><span class="line">	protected AuthenticationInfo doGetAuthenticationInfo(</span><br><span class="line">			AuthenticationToken token) throws AuthenticationException &#123;</span><br><span class="line">		UsernamePasswordToken myToken = (UsernamePasswordToken) token;</span><br><span class="line">		String username = myToken.getUsername();</span><br><span class="line">		char[] password = myToken.getPassword();</span><br><span class="line">		// 根据用户名查询数据库中的密码，将密码交给安全管理器，由安全管理器对象负责比较数据库中的密码和页面传递的密码是否一致</span><br><span class="line">		User user = userDao.findUserByUsername(username);</span><br><span class="line">		<span class="keyword">if</span>(user == null)&#123;</span><br><span class="line">			<span class="built_in">return</span> null;</span><br><span class="line">		&#125;</span><br><span class="line">		// 参数一：签名对象，认证通过后，可以在程序的任意位置获取当前放入的对象</span><br><span class="line">		// 参数二：数据库中查询出的密码</span><br><span class="line">		// 参数三：当前realm的类名</span><br><span class="line">		SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user,</span><br><span class="line">				user.getPassword(), this.getClass().getName());</span><br><span class="line">		<span class="built_in">return</span> info;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	// 授权方法</span><br><span class="line">	protected AuthorizationInfo doGetAuthorizationInfo(</span><br><span class="line">			PrincipalCollection principals) &#123;</span><br><span class="line">		//授权信息对象</span><br><span class="line">		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();</span><br><span class="line">		//根据当前登录用户查询数据库，获得其对应的权限</span><br><span class="line">		User user = (User) principals.getPrimaryPrincipal();</span><br><span class="line">		<span class="keyword">if</span>(user.getUsername().equals(<span class="string">"admin"</span>))&#123;</span><br><span class="line">			//超级管理员，查询所有权限</span><br><span class="line">			List&lt;Function&gt; list = functionDao.findAll();</span><br><span class="line">			<span class="keyword">for</span> (Function <span class="keyword">function</span> : list) &#123;</span><br><span class="line">				info.addStringPermission(function.getCode());</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			//普通用户，根据用户查询对应的权限</span><br><span class="line">			List&lt;Function&gt; list = functionDao.findFunctionsByUserId(user.getId());</span><br><span class="line">			<span class="keyword">for</span> (Function <span class="keyword">function</span> : list) &#123;</span><br><span class="line">				info.addStringPermission(function.getCode());</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">return</span> info;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="第六步：在spring配置文件中注册上面的realm，并注入给安全管理器"><a href="#第六步：在spring配置文件中注册上面的realm，并注入给安全管理器" class="headerlink" title="第六步：在spring配置文件中注册上面的realm，并注入给安全管理器"></a>第六步：在spring配置文件中注册上面的realm，并注入给安全管理器</h3><h2 id="接下来是一些权限模型"><a href="#接下来是一些权限模型" class="headerlink" title="接下来是一些权限模型"></a>接下来是一些权限模型</h2><p>经典的权限控制涉及5张表，分别是：<br>权限表<br>角色表<br>用户表<br>角色权限关系表<br>用户角色关系表<br>以下脚本可以直接copy，在你的数据库执行并分析<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line">/*==============================================================*/</span><br><span class="line">/* DBMS name:      MySQL 5.0                                    */</span><br><span class="line">/* Created on:     2018/1/10 21:55:52                           */</span><br><span class="line">/*==============================================================*/</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">drop table <span class="keyword">if</span> exists auth_function;</span><br><span class="line"></span><br><span class="line">drop table <span class="keyword">if</span> exists auth_role;</span><br><span class="line"></span><br><span class="line">drop table <span class="keyword">if</span> exists role_function;</span><br><span class="line"></span><br><span class="line">drop table <span class="keyword">if</span> exists t_user;</span><br><span class="line"></span><br><span class="line">drop table <span class="keyword">if</span> exists user_role;</span><br><span class="line"></span><br><span class="line">/*==============================================================*/</span><br><span class="line">/* Table: auth_function                                         */</span><br><span class="line">/*==============================================================*/</span><br><span class="line">create table auth_function</span><br><span class="line">(</span><br><span class="line">   id                   varchar(32) not null,</span><br><span class="line">   name                 varchar(255),</span><br><span class="line">   code                 varchar(255),</span><br><span class="line">   description          varchar(255),</span><br><span class="line">   page                 varchar(255),</span><br><span class="line">   generatemenu         varchar(255),</span><br><span class="line">   zindex               int,</span><br><span class="line">   pid                  varchar(32),</span><br><span class="line">   primary key (id),</span><br><span class="line">   key AK_Key_2 (name)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">/*==============================================================*/</span><br><span class="line">/* Table: auth_role                                             */</span><br><span class="line">/*==============================================================*/</span><br><span class="line">create table auth_role</span><br><span class="line">(</span><br><span class="line">   id                   varchar(32) not null,</span><br><span class="line">   name                 varchar(255),</span><br><span class="line">   code                 varchar(255),</span><br><span class="line">   description          varchar(255),</span><br><span class="line">   primary key (id),</span><br><span class="line">   key AK_Key_2 (name)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">/*==============================================================*/</span><br><span class="line">/* Table: role_function                                         */</span><br><span class="line">/*==============================================================*/</span><br><span class="line">create table role_function</span><br><span class="line">(</span><br><span class="line">   role_id              varchar(32) not null,</span><br><span class="line">   function_id          varchar(32) not null,</span><br><span class="line">   primary key (role_id, function_id)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">/*==============================================================*/</span><br><span class="line">/* Table: t_user                                                */</span><br><span class="line">/*==============================================================*/</span><br><span class="line">create table t_user</span><br><span class="line">(</span><br><span class="line">   id                   varchar(32) not null,</span><br><span class="line">   username             varchar(20),</span><br><span class="line">   password             varchar(32),</span><br><span class="line">   salary               double,</span><br><span class="line">   birthday             date,</span><br><span class="line">   gender               varchar(10),</span><br><span class="line">   station              varchar(40),</span><br><span class="line">   telephone            varchar(11),</span><br><span class="line">   remark               varchar(255),</span><br><span class="line">   primary key (id)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">/*==============================================================*/</span><br><span class="line">/* Table: user_role                                             */</span><br><span class="line">/*==============================================================*/</span><br><span class="line">create table user_role</span><br><span class="line">(</span><br><span class="line">   user_id              varchar(32) not null,</span><br><span class="line">   role_id              varchar(32) not null,</span><br><span class="line">   primary key (user_id, role_id)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">alter table auth_function add constraint FK_Reference_1 foreign key (pid)</span><br><span class="line">      references auth_function (id) on delete restrict on update restrict;</span><br><span class="line"></span><br><span class="line">alter table role_function add constraint FK_Reference_2 foreign key (function_id)</span><br><span class="line">      references auth_function (id) on delete restrict on update restrict;</span><br><span class="line"></span><br><span class="line">alter table role_function add constraint FK_Reference_3 foreign key (role_id)</span><br><span class="line">      references auth_role (id) on delete restrict on update restrict;</span><br><span class="line"></span><br><span class="line">alter table user_role add constraint FK_Reference_4 foreign key (user_id)</span><br><span class="line">      references t_user (id) on delete restrict on update restrict;</span><br><span class="line"></span><br><span class="line">alter table user_role add constraint FK_Reference_5 foreign key (role_id)</span><br><span class="line">      references auth_role (id) on delete restrict on update restrict;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://qianzong330.github.io/2018/01/09/my-new-post/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hanzq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hanzq's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/09/my-new-post/" itemprop="url">从这里开篇</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-09T17:54:26+08:00">
+                2018-01-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="乱七八糟的开始"><a href="#乱七八糟的开始" class="headerlink" title="乱七八糟的开始"></a>乱七八糟的开始</h2><p>总是等到过完农历的新年才会觉得新的一年才真正的开始，元旦仿佛没有什么卵用，回首过去的一年，有很多收获，同时也有不少遗憾，京东做活动的时候买的书还有好多没有读完，新的一年，新的开始，书要一步一步的读，代码要一字一字得码，希望2018年能够更上一层楼。<br>下面的只是个大概的提纲，没有具体的每天读几页，多少天读完等很严格的规划，因为生活中有很多突发事件会影响自己，公司加班、生病发烧，聚餐啊，跳槽等等…无法预测，用尽一切时间去学：在地铁上看，<br>在饭后看，睡觉前少看会儿手机多读一会儿书，让心流的时间加长，高效专注的完成之后再休息。</p>
+<h2 id="hexo博客出现“Cannot-GET-xxxx”的错误"><a href="#hexo博客出现“Cannot-GET-xxxx”的错误" class="headerlink" title="hexo博客出现“Cannot GET/xxxx”的错误"></a>hexo博客出现“Cannot GET/xxxx”的错误</h2><p>最近在github上搭了一个hexo博客系统，非常轻量级的，只需要几句nodejs命令就搭建完成了。我了解了一下，hexo博客是基于nodejs写的，采用ejs模板引擎编写页面。因为默认的主题风格不是很适合我，所以我就去hexo博客那里找了一些主题模板来使用。在我使用模板的过程中，就遇到新的主题的分类与标签功能出现“CannotGET/xxxx”问题。后来在官网上找到了原因，原来是我没有初始化分类的子目录。在控制台输入，如：hexo new page “categories”，初始化分类目录，就会在source文件里面初始化这些目录，并生成一个index文件。（注意配置）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new page <span class="string">"categories"</span></span><br></pre></td></tr></table></figure></p>
 
           
         
