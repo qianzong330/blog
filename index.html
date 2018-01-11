@@ -240,6 +240,137 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://qianzong330.github.io/2018/01/11/shiro/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hanzq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hanzq's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/11/shiro/" itemprop="url">利用shiro进行系统权限控制 上</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-11T08:27:06+08:00">
+                2018-01-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>入职以来，接触几次有关公司业务需求的评估，其中很多与系统权限相关的概念，为了方便今后学习与参考，今天博主抽一点时间进行整理，不足之处请指正，不能批评哦~<br>别走，开个玩笑啦。。。</p>
+<h2 id="权限概述"><a href="#权限概述" class="headerlink" title="权限概述"></a>权限概述</h2><p>系统中提供了很多功能，并不是每个人登录系统之后，可以操作的功能是完全相同的。需要对系统的功能的访问进行控制。在我们的系统中，通过系统的菜单和按钮展示系统的功能，菜单和按钮就是某个功能的访问入口。</p>
+<p>认证：系统提供的用于识别用户身份的功能（通常就是登录功能）—–你是谁？？？？<br>授权：系统中提供很多功能，需要为不同的用户根据其对应的权限，授予用户操作某些<br>功能的能力——你能做什么？？？</p>
+<h2 id="常见的权限控制的方式"><a href="#常见的权限控制的方式" class="headerlink" title="常见的权限控制的方式"></a>常见的权限控制的方式</h2><h3 id="url拦截进行权限控制"><a href="#url拦截进行权限控制" class="headerlink" title="url拦截进行权限控制"></a>url拦截进行权限控制</h3><p>编写拦截器或者过滤器，在拦截器或过滤器中进行判断，当前登录用户是否具有访问当前功能的权限，如果有，方形，如果没有，跳转到权限不足的提示页面</p>
+<h3 id="方法注解方式权限控制"><a href="#方法注解方式权限控制" class="headerlink" title="方法注解方式权限控制"></a>方法注解方式权限控制</h3><p>在相应的Action方法上添加@RequiredsPermmisons(“code”)的注解，如果某方法加了注解，就会为当前action创建代理对象，在代理对象中判断当前用户时候具有注解上所需要的权限，如果有，就通过反射调用action的相关方法，如果没有，跑出异常，阻止调用</p>
+<h2 id="Apache-shiro框架"><a href="#Apache-shiro框架" class="headerlink" title="Apache shiro框架"></a>Apache shiro框架</h2><h3 id="官方地址：Shiro-apache-org"><a href="#官方地址：Shiro-apache-org" class="headerlink" title="官方地址：Shiro.apache.org"></a>官方地址：Shiro.apache.org</h3><p>Apache shiro是一个强大而灵活的开源安全框架，它能够干净利落的处理身份认证、授权、企业回话管理和加密。<br>以下是你可以用Apache Shiro所做的事情<br>1.验证用户<br>2，对用户执行访问控制（如判断用户是否拥有admin角色，是否拥有访问的权限）等</p>
+<h3 id="Shiro提供的权限控制的方式"><a href="#Shiro提供的权限控制的方式" class="headerlink" title="Shiro提供的权限控制的方式"></a>Shiro提供的权限控制的方式</h3><p>1.url拦截进行权限控制–框架提供了很多过滤器进行url拦截<br>2.方法注解进行权限控制<br>3.页面标签权限控制–框架提供了一套标签，用于根据权限展示或隐藏按钮或菜单<br>4.代码级别权限控制–框架提供API,使用变成方式进行权限控制（不建议）</p>
+<h3 id="Shiro执行流程"><a href="#Shiro执行流程" class="headerlink" title="Shiro执行流程"></a>Shiro执行流程</h3><p>Application Code —&gt; Subject（当前用户）—&gt; Shiro SecurityManager（安全管理器）—&gt; Realm(安全数据桥，类似于Dao,负责访问安全数据)</p>
+<h2 id="快速入门-—-在项目中使用shiro"><a href="#快速入门-—-在项目中使用shiro" class="headerlink" title="快速入门 — 在项目中使用shiro"></a>快速入门 — 在项目中使用shiro</h2><h3 id="第一步：导入shiro的jar到项目中"><a href="#第一步：导入shiro的jar到项目中" class="headerlink" title="第一步：导入shiro的jar到项目中"></a>第一步：导入shiro的jar到项目中</h3><h3 id="第二步：在web-xml中配置一个过滤器代理对象，在项目启动时到spring工厂中加载一个和当前过滤器同名的bean对象"><a href="#第二步：在web-xml中配置一个过滤器代理对象，在项目启动时到spring工厂中加载一个和当前过滤器同名的bean对象" class="headerlink" title="第二步：在web.xml中配置一个过滤器代理对象，在项目启动时到spring工厂中加载一个和当前过滤器同名的bean对象"></a>第二步：在web.xml中配置一个过滤器代理对象，在项目启动时到spring工厂中加载一个和当前过滤器同名的bean对象</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 加入spring框架提供的过滤器代理对象 --&gt;</span><br><span class="line">  &lt;filter&gt;</span><br><span class="line">  	&lt;filter-name&gt;shiroFilter&lt;/filter-name&gt;</span><br><span class="line">  	&lt;filter-class&gt;org.springframework.web.filter.DelegatingFilterProxy&lt;/filter-class&gt;</span><br><span class="line">  &lt;/filter&gt;</span><br><span class="line">  &lt;filter-mapping&gt;</span><br><span class="line">  	&lt;filter-name&gt;shiroFilter&lt;/filter-name&gt;</span><br><span class="line">  	&lt;url-pattern&gt;/*&lt;/url-pattern&gt;</span><br><span class="line">  &lt;/filter-mapping&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="第三步：在spring配置文件中配置一个名称为shiroFilter的bean"><a href="#第三步：在spring配置文件中配置一个名称为shiroFilter的bean" class="headerlink" title="第三步：在spring配置文件中配置一个名称为shiroFilter的bean"></a>第三步：在spring配置文件中配置一个名称为shiroFilter的bean</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 配置shiro的bean， 使用当前工厂bean对象创建过滤器用于进行权限控制--&gt;</span><br><span class="line">	&lt;bean id=<span class="string">"shiroFilter"</span> class=<span class="string">"org.apache.shiro.spring.web.ShiroFilterFactoryBean"</span>&gt;</span><br><span class="line">		&lt;!-- 注入安全管理器对象 --&gt;</span><br><span class="line">		&lt;property name=<span class="string">"securityManager"</span> ref=<span class="string">"securityManager"</span>&gt;&lt;/property&gt;</span><br><span class="line">		&lt;!-- 登录页面url地址 --&gt;</span><br><span class="line">		&lt;property name=<span class="string">"loginUrl"</span> value=<span class="string">"/login.jsp"</span>&gt;&lt;/property&gt;</span><br><span class="line">		&lt;!-- 成功页面 --&gt;</span><br><span class="line">		&lt;property name=<span class="string">"successUrl"</span> value=<span class="string">"/index.jsp"</span>&gt;&lt;/property&gt;</span><br><span class="line">		&lt;!-- 权限不足提示页面 --&gt;</span><br><span class="line">		&lt;property name=<span class="string">"unauthorizedUrl"</span> value=<span class="string">"/unauthorized.jsp"</span>&gt;&lt;/property&gt;</span><br><span class="line">		&lt;!-- 基于url拦截，使用过滤器进行拦截 --&gt;</span><br><span class="line">		&lt;property name=<span class="string">"filterChainDefinitions"</span>&gt;</span><br><span class="line">			&lt;value&gt;</span><br><span class="line">				/css/** = anon</span><br><span class="line">				/images/** = anon</span><br><span class="line">				/js/** = anon</span><br><span class="line">				/validatecode.jsp* = anon</span><br><span class="line">				/login.jsp = anon</span><br><span class="line">				/userAction_login.action = anon</span><br><span class="line">				/page_base_staff.action = perms[<span class="string">"staff"</span>]</span><br><span class="line">				/** = authc</span><br><span class="line">			&lt;/value&gt;</span><br><span class="line">		&lt;/property&gt;		</span><br><span class="line">	&lt;/bean&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;!-- 配置安全管理器 --&gt;</span><br><span class="line">	&lt;bean id=<span class="string">"securityManager class="</span>org.apache.shiro.web.mgt.DefaultWebSecurityManager<span class="string">"&gt;</span></span><br><span class="line"><span class="string">		&lt;property name="</span>realm<span class="string">" ref="</span>appRealm<span class="string">"&gt;&lt;/property&gt;</span></span><br><span class="line"><span class="string">		&lt;!-- 注入缓存管理器 --&gt;</span></span><br><span class="line"><span class="string">		&lt;property name="</span>cacheManager<span class="string">" ref="</span>cacheManager<span class="string">"&gt;&lt;/property&gt;</span></span><br><span class="line"><span class="string">	&lt;/bean&gt;</span></span><br><span class="line"><span class="string">	</span></span><br><span class="line"><span class="string">	&lt;!-- 配置自定义的realm --&gt;</span></span><br><span class="line"><span class="string">	&lt;bean id="</span>appRealm<span class="string">" class="</span>此处填写你项目中编写的realm的权限定名<span class="string">"/&gt;</span></span><br><span class="line"><span class="string">	</span></span><br><span class="line"><span class="string">	&lt;!-- 自动代理 --&gt;</span></span><br><span class="line"><span class="string">	&lt;bean class="</span>org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator<span class="string">"&gt;</span></span><br><span class="line"><span class="string">		&lt;!-- 指定使用cglib创建代理 --&gt;</span></span><br><span class="line"><span class="string">		&lt;property name="</span>proxyTargetClass<span class="string">" value="</span><span class="literal">true</span><span class="string">"&gt;&lt;/property&gt;</span></span><br><span class="line"><span class="string">	&lt;/bean&gt;</span></span><br><span class="line"><span class="string">	</span></span><br><span class="line"><span class="string">	&lt;!-- 切面 --&gt;</span></span><br><span class="line"><span class="string">	&lt;bean class="</span>org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor<span class="string">"&gt;&lt;/bean&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="第四步：修改UserAction的login登录访问，使用shiro框架提供的方式进行认证操作"><a href="#第四步：修改UserAction的login登录访问，使用shiro框架提供的方式进行认证操作" class="headerlink" title="第四步：修改UserAction的login登录访问，使用shiro框架提供的方式进行认证操作"></a>第四步：修改UserAction的login登录访问，使用shiro框架提供的方式进行认证操作</h3><h3 id="第五步：自定义一个Realm，进行认证和授权操作"><a href="#第五步：自定义一个Realm，进行认证和授权操作" class="headerlink" title="第五步：自定义一个Realm，进行认证和授权操作"></a>第五步：自定义一个Realm，进行认证和授权操作</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">public class AppRealm extends AuthorizingRealm &#123;</span><br><span class="line">	// 注入dao，访问数据库</span><br><span class="line">	@Resource</span><br><span class="line">	private IUserDao userDao;</span><br><span class="line">	@Resource</span><br><span class="line">	private IFunctionDao functionDao;</span><br><span class="line"></span><br><span class="line">	// 认证方法</span><br><span class="line">	protected AuthenticationInfo doGetAuthenticationInfo(</span><br><span class="line">			AuthenticationToken token) throws AuthenticationException &#123;</span><br><span class="line">		UsernamePasswordToken myToken = (UsernamePasswordToken) token;</span><br><span class="line">		String username = myToken.getUsername();</span><br><span class="line">		char[] password = myToken.getPassword();</span><br><span class="line">		// 根据用户名查询数据库中的密码，将密码交给安全管理器，由安全管理器对象负责比较数据库中的密码和页面传递的密码是否一致</span><br><span class="line">		User user = userDao.findUserByUsername(username);</span><br><span class="line">		<span class="keyword">if</span>(user == null)&#123;</span><br><span class="line">			<span class="built_in">return</span> null;</span><br><span class="line">		&#125;</span><br><span class="line">		// 参数一：签名对象，认证通过后，可以在程序的任意位置获取当前放入的对象</span><br><span class="line">		// 参数二：数据库中查询出的密码</span><br><span class="line">		// 参数三：当前realm的类名</span><br><span class="line">		SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user,</span><br><span class="line">				user.getPassword(), this.getClass().getName());</span><br><span class="line">		<span class="built_in">return</span> info;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	// 授权方法</span><br><span class="line">	protected AuthorizationInfo doGetAuthorizationInfo(</span><br><span class="line">			PrincipalCollection principals) &#123;</span><br><span class="line">		//授权信息对象</span><br><span class="line">		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();</span><br><span class="line">		//根据当前登录用户查询数据库，获得其对应的权限</span><br><span class="line">		User user = (User) principals.getPrimaryPrincipal();</span><br><span class="line">		<span class="keyword">if</span>(user.getUsername().equals(<span class="string">"admin"</span>))&#123;</span><br><span class="line">			//超级管理员，查询所有权限</span><br><span class="line">			List&lt;Function&gt; list = functionDao.findAll();</span><br><span class="line">			<span class="keyword">for</span> (Function <span class="keyword">function</span> : list) &#123;</span><br><span class="line">				info.addStringPermission(function.getCode());</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			//普通用户，根据用户查询对应的权限</span><br><span class="line">			List&lt;Function&gt; list = functionDao.findFunctionsByUserId(user.getId());</span><br><span class="line">			<span class="keyword">for</span> (Function <span class="keyword">function</span> : list) &#123;</span><br><span class="line">				info.addStringPermission(function.getCode());</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">return</span> info;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="第六步：在spring配置文件中注册上面的realm，并注入给安全管理器"><a href="#第六步：在spring配置文件中注册上面的realm，并注入给安全管理器" class="headerlink" title="第六步：在spring配置文件中注册上面的realm，并注入给安全管理器"></a>第六步：在spring配置文件中注册上面的realm，并注入给安全管理器</h3><h2 id="接下来是一些权限模型"><a href="#接下来是一些权限模型" class="headerlink" title="接下来是一些权限模型"></a>接下来是一些权限模型</h2><p>经典的权限控制涉及5张表，分别是：<br>权限表<br>角色表<br>用户表<br>角色权限关系表<br>用户角色关系表<br>以下脚本可以直接copy，在你的数据库执行并分析<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line">/*==============================================================*/</span><br><span class="line">/* DBMS name:      MySQL 5.0                                    */</span><br><span class="line">/* Created on:     2018/1/10 21:55:52                           */</span><br><span class="line">/*==============================================================*/</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">drop table <span class="keyword">if</span> exists auth_function;</span><br><span class="line"></span><br><span class="line">drop table <span class="keyword">if</span> exists auth_role;</span><br><span class="line"></span><br><span class="line">drop table <span class="keyword">if</span> exists role_function;</span><br><span class="line"></span><br><span class="line">drop table <span class="keyword">if</span> exists t_user;</span><br><span class="line"></span><br><span class="line">drop table <span class="keyword">if</span> exists user_role;</span><br><span class="line"></span><br><span class="line">/*==============================================================*/</span><br><span class="line">/* Table: auth_function                                         */</span><br><span class="line">/*==============================================================*/</span><br><span class="line">create table auth_function</span><br><span class="line">(</span><br><span class="line">   id                   varchar(32) not null,</span><br><span class="line">   name                 varchar(255),</span><br><span class="line">   code                 varchar(255),</span><br><span class="line">   description          varchar(255),</span><br><span class="line">   page                 varchar(255),</span><br><span class="line">   generatemenu         varchar(255),</span><br><span class="line">   zindex               int,</span><br><span class="line">   pid                  varchar(32),</span><br><span class="line">   primary key (id),</span><br><span class="line">   key AK_Key_2 (name)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">/*==============================================================*/</span><br><span class="line">/* Table: auth_role                                             */</span><br><span class="line">/*==============================================================*/</span><br><span class="line">create table auth_role</span><br><span class="line">(</span><br><span class="line">   id                   varchar(32) not null,</span><br><span class="line">   name                 varchar(255),</span><br><span class="line">   code                 varchar(255),</span><br><span class="line">   description          varchar(255),</span><br><span class="line">   primary key (id),</span><br><span class="line">   key AK_Key_2 (name)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">/*==============================================================*/</span><br><span class="line">/* Table: role_function                                         */</span><br><span class="line">/*==============================================================*/</span><br><span class="line">create table role_function</span><br><span class="line">(</span><br><span class="line">   role_id              varchar(32) not null,</span><br><span class="line">   function_id          varchar(32) not null,</span><br><span class="line">   primary key (role_id, function_id)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">/*==============================================================*/</span><br><span class="line">/* Table: t_user                                                */</span><br><span class="line">/*==============================================================*/</span><br><span class="line">create table t_user</span><br><span class="line">(</span><br><span class="line">   id                   varchar(32) not null,</span><br><span class="line">   username             varchar(20),</span><br><span class="line">   password             varchar(32),</span><br><span class="line">   salary               double,</span><br><span class="line">   birthday             date,</span><br><span class="line">   gender               varchar(10),</span><br><span class="line">   station              varchar(40),</span><br><span class="line">   telephone            varchar(11),</span><br><span class="line">   remark               varchar(255),</span><br><span class="line">   primary key (id)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">/*==============================================================*/</span><br><span class="line">/* Table: user_role                                             */</span><br><span class="line">/*==============================================================*/</span><br><span class="line">create table user_role</span><br><span class="line">(</span><br><span class="line">   user_id              varchar(32) not null,</span><br><span class="line">   role_id              varchar(32) not null,</span><br><span class="line">   primary key (user_id, role_id)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">alter table auth_function add constraint FK_Reference_1 foreign key (pid)</span><br><span class="line">      references auth_function (id) on delete restrict on update restrict;</span><br><span class="line"></span><br><span class="line">alter table role_function add constraint FK_Reference_2 foreign key (function_id)</span><br><span class="line">      references auth_function (id) on delete restrict on update restrict;</span><br><span class="line"></span><br><span class="line">alter table role_function add constraint FK_Reference_3 foreign key (role_id)</span><br><span class="line">      references auth_role (id) on delete restrict on update restrict;</span><br><span class="line"></span><br><span class="line">alter table user_role add constraint FK_Reference_4 foreign key (user_id)</span><br><span class="line">      references t_user (id) on delete restrict on update restrict;</span><br><span class="line"></span><br><span class="line">alter table user_role add constraint FK_Reference_5 foreign key (role_id)</span><br><span class="line">      references auth_role (id) on delete restrict on update restrict;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://qianzong330.github.io/2018/01/09/my-new-post/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -432,137 +563,6 @@
         
           
             <p>最近出来了很多问题，迫使我不得不考虑总结一下项目中用到的技能点，于是这个简陋的Blog将在线与大家实时分享，我也是强迫症受害者，想要各方面设计与布局达到完美，但限于时间的考虑以及个人能力，搭建该空间过程出现了许多棘手的问题，于是决定先放一放，虽然简陋但是功能满足目前所需，待日后多了解再回头补全，目前就这样了，接下来音乐，我看见一座座山一座座山川，呀拉锁~那就是青藏高园！！</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://qianzong330.github.io/2018/01/11/shiro/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hanzq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hanzq's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/11/shiro/" itemprop="url">利用shiro进行系统权限控制 上</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-11T08:27:06+08:00">
-                2018-01-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>入职以来，接触几次有关公司业务需求的评估，其中很多与系统权限相关的概念，为了方便今后学习与参考，今天博主抽一点时间进行整理，不足之处请指正，不能批评哦~<br>别走，开个玩笑啦。。。</p>
-<h2 id="权限概述"><a href="#权限概述" class="headerlink" title="权限概述"></a>权限概述</h2><p>系统中提供了很多功能，并不是每个人登录系统之后，可以操作的功能是完全相同的。需要对系统的功能的访问进行控制。在我们的系统中，通过系统的菜单和按钮展示系统的功能，菜单和按钮就是某个功能的访问入口。</p>
-<p>认证：系统提供的用于识别用户身份的功能（通常就是登录功能）—–你是谁？？？？<br>授权：系统中提供很多功能，需要为不同的用户根据其对应的权限，授予用户操作某些<br>功能的能力——你能做什么？？？</p>
-<h2 id="常见的权限控制的方式"><a href="#常见的权限控制的方式" class="headerlink" title="常见的权限控制的方式"></a>常见的权限控制的方式</h2><h3 id="url拦截进行权限控制"><a href="#url拦截进行权限控制" class="headerlink" title="url拦截进行权限控制"></a>url拦截进行权限控制</h3><p>编写拦截器或者过滤器，在拦截器或过滤器中进行判断，当前登录用户是否具有访问当前功能的权限，如果有，方形，如果没有，跳转到权限不足的提示页面</p>
-<h3 id="方法注解方式权限控制"><a href="#方法注解方式权限控制" class="headerlink" title="方法注解方式权限控制"></a>方法注解方式权限控制</h3><p>在相应的Action方法上添加@RequiredsPermmisons(“code”)的注解，如果某方法加了注解，就会为当前action创建代理对象，在代理对象中判断当前用户时候具有注解上所需要的权限，如果有，就通过反射调用action的相关方法，如果没有，跑出异常，阻止调用</p>
-<h2 id="Apache-shiro框架"><a href="#Apache-shiro框架" class="headerlink" title="Apache shiro框架"></a>Apache shiro框架</h2><h3 id="官方地址：Shiro-apache-org"><a href="#官方地址：Shiro-apache-org" class="headerlink" title="官方地址：Shiro.apache.org"></a>官方地址：Shiro.apache.org</h3><p>Apache shiro是一个强大而灵活的开源安全框架，它能够干净利落的处理身份认证、授权、企业回话管理和加密。<br>以下是你可以用Apache Shiro所做的事情<br>1.验证用户<br>2，对用户执行访问控制（如判断用户是否拥有admin角色，是否拥有访问的权限）等</p>
-<h3 id="Shiro提供的权限控制的方式"><a href="#Shiro提供的权限控制的方式" class="headerlink" title="Shiro提供的权限控制的方式"></a>Shiro提供的权限控制的方式</h3><p>1.url拦截进行权限控制–框架提供了很多过滤器进行url拦截<br>2.方法注解进行权限控制<br>3.页面标签权限控制–框架提供了一套标签，用于根据权限展示或隐藏按钮或菜单<br>4.代码级别权限控制–框架提供API,使用变成方式进行权限控制（不建议）</p>
-<h3 id="Shiro执行流程"><a href="#Shiro执行流程" class="headerlink" title="Shiro执行流程"></a>Shiro执行流程</h3><p>Application Code —&gt; Subject（当前用户）—&gt; Shiro SecurityManager（安全管理器）—&gt; Realm(安全数据桥，类似于Dao,负责访问安全数据)</p>
-<h2 id="快速入门-—-在项目中使用shiro"><a href="#快速入门-—-在项目中使用shiro" class="headerlink" title="快速入门 — 在项目中使用shiro"></a>快速入门 — 在项目中使用shiro</h2><h3 id="第一步：导入shiro的jar到项目中"><a href="#第一步：导入shiro的jar到项目中" class="headerlink" title="第一步：导入shiro的jar到项目中"></a>第一步：导入shiro的jar到项目中</h3><h3 id="第二步：在web-xml中配置一个过滤器代理对象，在项目启动时到spring工厂中加载一个和当前过滤器同名的bean对象"><a href="#第二步：在web-xml中配置一个过滤器代理对象，在项目启动时到spring工厂中加载一个和当前过滤器同名的bean对象" class="headerlink" title="第二步：在web.xml中配置一个过滤器代理对象，在项目启动时到spring工厂中加载一个和当前过滤器同名的bean对象"></a>第二步：在web.xml中配置一个过滤器代理对象，在项目启动时到spring工厂中加载一个和当前过滤器同名的bean对象</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 加入spring框架提供的过滤器代理对象 --&gt;</span><br><span class="line">  &lt;filter&gt;</span><br><span class="line">  	&lt;filter-name&gt;shiroFilter&lt;/filter-name&gt;</span><br><span class="line">  	&lt;filter-class&gt;org.springframework.web.filter.DelegatingFilterProxy&lt;/filter-class&gt;</span><br><span class="line">  &lt;/filter&gt;</span><br><span class="line">  &lt;filter-mapping&gt;</span><br><span class="line">  	&lt;filter-name&gt;shiroFilter&lt;/filter-name&gt;</span><br><span class="line">  	&lt;url-pattern&gt;/*&lt;/url-pattern&gt;</span><br><span class="line">  &lt;/filter-mapping&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="第三步：在spring配置文件中配置一个名称为shiroFilter的bean"><a href="#第三步：在spring配置文件中配置一个名称为shiroFilter的bean" class="headerlink" title="第三步：在spring配置文件中配置一个名称为shiroFilter的bean"></a>第三步：在spring配置文件中配置一个名称为shiroFilter的bean</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 配置shiro的bean， 使用当前工厂bean对象创建过滤器用于进行权限控制--&gt;</span><br><span class="line">	&lt;bean id=<span class="string">"shiroFilter"</span> class=<span class="string">"org.apache.shiro.spring.web.ShiroFilterFactoryBean"</span>&gt;</span><br><span class="line">		&lt;!-- 注入安全管理器对象 --&gt;</span><br><span class="line">		&lt;property name=<span class="string">"securityManager"</span> ref=<span class="string">"securityManager"</span>&gt;&lt;/property&gt;</span><br><span class="line">		&lt;!-- 登录页面url地址 --&gt;</span><br><span class="line">		&lt;property name=<span class="string">"loginUrl"</span> value=<span class="string">"/login.jsp"</span>&gt;&lt;/property&gt;</span><br><span class="line">		&lt;!-- 成功页面 --&gt;</span><br><span class="line">		&lt;property name=<span class="string">"successUrl"</span> value=<span class="string">"/index.jsp"</span>&gt;&lt;/property&gt;</span><br><span class="line">		&lt;!-- 权限不足提示页面 --&gt;</span><br><span class="line">		&lt;property name=<span class="string">"unauthorizedUrl"</span> value=<span class="string">"/unauthorized.jsp"</span>&gt;&lt;/property&gt;</span><br><span class="line">		&lt;!-- 基于url拦截，使用过滤器进行拦截 --&gt;</span><br><span class="line">		&lt;property name=<span class="string">"filterChainDefinitions"</span>&gt;</span><br><span class="line">			&lt;value&gt;</span><br><span class="line">				/css/** = anon</span><br><span class="line">				/images/** = anon</span><br><span class="line">				/js/** = anon</span><br><span class="line">				/validatecode.jsp* = anon</span><br><span class="line">				/login.jsp = anon</span><br><span class="line">				/userAction_login.action = anon</span><br><span class="line">				/page_base_staff.action = perms[<span class="string">"staff"</span>]</span><br><span class="line">				/** = authc</span><br><span class="line">			&lt;/value&gt;</span><br><span class="line">		&lt;/property&gt;		</span><br><span class="line">	&lt;/bean&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;!-- 配置安全管理器 --&gt;</span><br><span class="line">	&lt;bean id=<span class="string">"securityManager class="</span>org.apache.shiro.web.mgt.DefaultWebSecurityManager<span class="string">"&gt;</span></span><br><span class="line"><span class="string">		&lt;property name="</span>realm<span class="string">" ref="</span>appRealm<span class="string">"&gt;&lt;/property&gt;</span></span><br><span class="line"><span class="string">		&lt;!-- 注入缓存管理器 --&gt;</span></span><br><span class="line"><span class="string">		&lt;property name="</span>cacheManager<span class="string">" ref="</span>cacheManager<span class="string">"&gt;&lt;/property&gt;</span></span><br><span class="line"><span class="string">	&lt;/bean&gt;</span></span><br><span class="line"><span class="string">	</span></span><br><span class="line"><span class="string">	&lt;!-- 配置自定义的realm --&gt;</span></span><br><span class="line"><span class="string">	&lt;bean id="</span>appRealm<span class="string">" class="</span>此处填写你项目中编写的realm的权限定名<span class="string">"/&gt;</span></span><br><span class="line"><span class="string">	</span></span><br><span class="line"><span class="string">	&lt;!-- 自动代理 --&gt;</span></span><br><span class="line"><span class="string">	&lt;bean class="</span>org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator<span class="string">"&gt;</span></span><br><span class="line"><span class="string">		&lt;!-- 指定使用cglib创建代理 --&gt;</span></span><br><span class="line"><span class="string">		&lt;property name="</span>proxyTargetClass<span class="string">" value="</span><span class="literal">true</span><span class="string">"&gt;&lt;/property&gt;</span></span><br><span class="line"><span class="string">	&lt;/bean&gt;</span></span><br><span class="line"><span class="string">	</span></span><br><span class="line"><span class="string">	&lt;!-- 切面 --&gt;</span></span><br><span class="line"><span class="string">	&lt;bean class="</span>org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor<span class="string">"&gt;&lt;/bean&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="第四步：修改UserAction的login登录访问，使用shiro框架提供的方式进行认证操作"><a href="#第四步：修改UserAction的login登录访问，使用shiro框架提供的方式进行认证操作" class="headerlink" title="第四步：修改UserAction的login登录访问，使用shiro框架提供的方式进行认证操作"></a>第四步：修改UserAction的login登录访问，使用shiro框架提供的方式进行认证操作</h3><h3 id="第五步：自定义一个Realm，进行认证和授权操作"><a href="#第五步：自定义一个Realm，进行认证和授权操作" class="headerlink" title="第五步：自定义一个Realm，进行认证和授权操作"></a>第五步：自定义一个Realm，进行认证和授权操作</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">public class AppRealm extends AuthorizingRealm &#123;</span><br><span class="line">	// 注入dao，访问数据库</span><br><span class="line">	@Resource</span><br><span class="line">	private IUserDao userDao;</span><br><span class="line">	@Resource</span><br><span class="line">	private IFunctionDao functionDao;</span><br><span class="line"></span><br><span class="line">	// 认证方法</span><br><span class="line">	protected AuthenticationInfo doGetAuthenticationInfo(</span><br><span class="line">			AuthenticationToken token) throws AuthenticationException &#123;</span><br><span class="line">		UsernamePasswordToken myToken = (UsernamePasswordToken) token;</span><br><span class="line">		String username = myToken.getUsername();</span><br><span class="line">		char[] password = myToken.getPassword();</span><br><span class="line">		// 根据用户名查询数据库中的密码，将密码交给安全管理器，由安全管理器对象负责比较数据库中的密码和页面传递的密码是否一致</span><br><span class="line">		User user = userDao.findUserByUsername(username);</span><br><span class="line">		<span class="keyword">if</span>(user == null)&#123;</span><br><span class="line">			<span class="built_in">return</span> null;</span><br><span class="line">		&#125;</span><br><span class="line">		// 参数一：签名对象，认证通过后，可以在程序的任意位置获取当前放入的对象</span><br><span class="line">		// 参数二：数据库中查询出的密码</span><br><span class="line">		// 参数三：当前realm的类名</span><br><span class="line">		SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user,</span><br><span class="line">				user.getPassword(), this.getClass().getName());</span><br><span class="line">		<span class="built_in">return</span> info;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	// 授权方法</span><br><span class="line">	protected AuthorizationInfo doGetAuthorizationInfo(</span><br><span class="line">			PrincipalCollection principals) &#123;</span><br><span class="line">		//授权信息对象</span><br><span class="line">		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();</span><br><span class="line">		//根据当前登录用户查询数据库，获得其对应的权限</span><br><span class="line">		User user = (User) principals.getPrimaryPrincipal();</span><br><span class="line">		<span class="keyword">if</span>(user.getUsername().equals(<span class="string">"admin"</span>))&#123;</span><br><span class="line">			//超级管理员，查询所有权限</span><br><span class="line">			List&lt;Function&gt; list = functionDao.findAll();</span><br><span class="line">			<span class="keyword">for</span> (Function <span class="keyword">function</span> : list) &#123;</span><br><span class="line">				info.addStringPermission(function.getCode());</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			//普通用户，根据用户查询对应的权限</span><br><span class="line">			List&lt;Function&gt; list = functionDao.findFunctionsByUserId(user.getId());</span><br><span class="line">			<span class="keyword">for</span> (Function <span class="keyword">function</span> : list) &#123;</span><br><span class="line">				info.addStringPermission(function.getCode());</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">return</span> info;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="第六步：在spring配置文件中注册上面的realm，并注入给安全管理器"><a href="#第六步：在spring配置文件中注册上面的realm，并注入给安全管理器" class="headerlink" title="第六步：在spring配置文件中注册上面的realm，并注入给安全管理器"></a>第六步：在spring配置文件中注册上面的realm，并注入给安全管理器</h3><h2 id="接下来是一些权限模型"><a href="#接下来是一些权限模型" class="headerlink" title="接下来是一些权限模型"></a>接下来是一些权限模型</h2><p>经典的权限控制涉及5张表，分别是：<br>权限表<br>角色表<br>用户表<br>角色权限关系表<br>用户角色关系表<br>以下脚本可以直接copy，在你的数据库执行并分析<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line">/*==============================================================*/</span><br><span class="line">/* DBMS name:      MySQL 5.0                                    */</span><br><span class="line">/* Created on:     2018/1/10 21:55:52                           */</span><br><span class="line">/*==============================================================*/</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">drop table <span class="keyword">if</span> exists auth_function;</span><br><span class="line"></span><br><span class="line">drop table <span class="keyword">if</span> exists auth_role;</span><br><span class="line"></span><br><span class="line">drop table <span class="keyword">if</span> exists role_function;</span><br><span class="line"></span><br><span class="line">drop table <span class="keyword">if</span> exists t_user;</span><br><span class="line"></span><br><span class="line">drop table <span class="keyword">if</span> exists user_role;</span><br><span class="line"></span><br><span class="line">/*==============================================================*/</span><br><span class="line">/* Table: auth_function                                         */</span><br><span class="line">/*==============================================================*/</span><br><span class="line">create table auth_function</span><br><span class="line">(</span><br><span class="line">   id                   varchar(32) not null,</span><br><span class="line">   name                 varchar(255),</span><br><span class="line">   code                 varchar(255),</span><br><span class="line">   description          varchar(255),</span><br><span class="line">   page                 varchar(255),</span><br><span class="line">   generatemenu         varchar(255),</span><br><span class="line">   zindex               int,</span><br><span class="line">   pid                  varchar(32),</span><br><span class="line">   primary key (id),</span><br><span class="line">   key AK_Key_2 (name)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">/*==============================================================*/</span><br><span class="line">/* Table: auth_role                                             */</span><br><span class="line">/*==============================================================*/</span><br><span class="line">create table auth_role</span><br><span class="line">(</span><br><span class="line">   id                   varchar(32) not null,</span><br><span class="line">   name                 varchar(255),</span><br><span class="line">   code                 varchar(255),</span><br><span class="line">   description          varchar(255),</span><br><span class="line">   primary key (id),</span><br><span class="line">   key AK_Key_2 (name)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">/*==============================================================*/</span><br><span class="line">/* Table: role_function                                         */</span><br><span class="line">/*==============================================================*/</span><br><span class="line">create table role_function</span><br><span class="line">(</span><br><span class="line">   role_id              varchar(32) not null,</span><br><span class="line">   function_id          varchar(32) not null,</span><br><span class="line">   primary key (role_id, function_id)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">/*==============================================================*/</span><br><span class="line">/* Table: t_user                                                */</span><br><span class="line">/*==============================================================*/</span><br><span class="line">create table t_user</span><br><span class="line">(</span><br><span class="line">   id                   varchar(32) not null,</span><br><span class="line">   username             varchar(20),</span><br><span class="line">   password             varchar(32),</span><br><span class="line">   salary               double,</span><br><span class="line">   birthday             date,</span><br><span class="line">   gender               varchar(10),</span><br><span class="line">   station              varchar(40),</span><br><span class="line">   telephone            varchar(11),</span><br><span class="line">   remark               varchar(255),</span><br><span class="line">   primary key (id)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">/*==============================================================*/</span><br><span class="line">/* Table: user_role                                             */</span><br><span class="line">/*==============================================================*/</span><br><span class="line">create table user_role</span><br><span class="line">(</span><br><span class="line">   user_id              varchar(32) not null,</span><br><span class="line">   role_id              varchar(32) not null,</span><br><span class="line">   primary key (user_id, role_id)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">alter table auth_function add constraint FK_Reference_1 foreign key (pid)</span><br><span class="line">      references auth_function (id) on delete restrict on update restrict;</span><br><span class="line"></span><br><span class="line">alter table role_function add constraint FK_Reference_2 foreign key (function_id)</span><br><span class="line">      references auth_function (id) on delete restrict on update restrict;</span><br><span class="line"></span><br><span class="line">alter table role_function add constraint FK_Reference_3 foreign key (role_id)</span><br><span class="line">      references auth_role (id) on delete restrict on update restrict;</span><br><span class="line"></span><br><span class="line">alter table user_role add constraint FK_Reference_4 foreign key (user_id)</span><br><span class="line">      references t_user (id) on delete restrict on update restrict;</span><br><span class="line"></span><br><span class="line">alter table user_role add constraint FK_Reference_5 foreign key (role_id)</span><br><span class="line">      references auth_role (id) on delete restrict on update restrict;</span><br></pre></td></tr></table></figure></p>
 
           
         
